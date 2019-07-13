@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+        <link rel="stylesheet" media="print" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="http://momentjs.com/downloads/moment.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+
+        <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
+
+
+        <script>
+        
+            $(function() {
+
+
+
+                $('#olaylar .fc-event').each(function() {
+
+
+                    $(this).data('event', {
+                        title: $(this).text()
+                    });
+
+                    $(this).draggable({
+                        revert: true,
+                        revertDuration: 0
+                    });
+
+                });
+
+                $('#calendar').fullCalendar({
+                    locale: 'tr',
+                    weekends: true,
+                    defaultView: 'agendaWeek',
+                    selectable: true,
+                    editable: true,
+                    eventStartEditable: true,
+                    eventDurationEditable: true,
+                    allDaySlot: true,
+                    allDayText: 'Bütün Gün',
+                    scrollTime: '12:00',
+                    minTime: '00:00',
+                    maxTime: '23:00',
+                    slotDuration: '00:15',
+                    droppable: true,
+                    slotLabelFormat: 'HH:mm:ss',
+                    slotLabelInterval: '01:00',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay agendaWeek,agendaDay'
+                    },
+                    footer: {
+                        left: 'title',
+                        center: '',
+                        right: 'prevYear,nextYear'
+                    },
+                    firstDay: 1,
+                    columnFormat: 'dddd',
+                    timeFormat: 'HH mm ss',
+                    titleFormat: 'D MMMM YYYY',
+                    titleRangeSeparator: ' / ',
+                    buttonText: {
+                        agendaWeek: 'Saatli Hafta',
+                        agendaDay: 'Saatli Gün'
+                    },
+                    customButtons: {
+                        denemeBtn: {
+                            text: 'Deneme Butonu',
+                            click: function() {
+                                alert('Deneme Butonuna Basıldı!');
+                            }
+                        }
+                    },
+                    isRTL: false,
+                    eventClick: function(event) {
+
+                        alert(event.id + '');
+
+                    },
+                    drop: function(date) {
+                        alert(date.format());
+                    },
+                    eventDrop: function(event) {
+                        alert('olay yeri değişti: ' + event.title + ' ' + event.start.format());
+                    },
+                    dayClick: function(date) {
+                        alert(date.format() + ' tarihine tıkladınız');
+                    },
+                    eventRender: function(event) {
+
+
+                        if(event.title == 'Deneme Olayı') return false;
+                        return true;
+
+                    },
+                    eventAfterAllRender: function() {
+
+                        alert('takvim yüklendi');
+
+                    },
+                    events: [
+                        {
+                            id: 2,
+                            title: 'Deneme Olayı',
+                            start: new Date(2019, 2, 24, 12, 30),
+                            end: new Date(2019, 2, 24, 16, 30)
+                        },
+                        {
+                            id: 1,
+                            title: 'Deneme Olayı 2',
+                            start: new Date(2019, 2, 23),
+                            allDay: true,
+                            url: 'http://www.google.com/'
+                        }
+                    ],
+                    aspectRatio: 4,
+                    views: {
+                        month: {
+                            titleFormat: 'MMMM'
+                        },
+                        basicWeek: {
+                            titleFormat: 'MMMM YYYY',
+                            weekends: false
+                        }
+                    }
+                });
+
+            }) ;
+        
+
+
+
+
+        </script>
+
+    </head>
+
+    <body>
+
+
+      <div id="olaylar">
+
+        <div class="fc-event">Olay 1</div>
+        <div class="fc-event">Olay 2</div>
+        <div class="fc-event">Olay 3</div>
+
+      </div>
+
+      <div id="calendar"></div>
+     
+    </body>
+
+</html>
